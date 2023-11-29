@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyển sang MetaMask</title>
+</head>
+
+<body>
+
+    <button id="chuyenMetaMask">Chuyển sang MetaMask</button>
+
+    <button onclick="chuyenToken(1)">Chuyển 1 Token</button>
+    <button onclick="chuyenToken(2)">Chuyển 2 Token</button>
+    <button onclick="chuyenToken(3)">Chuyển 3 Token</button>
+    <button onclick="chuyenToken(4)">Chuyển 4 Token</button>
+    <button onclick="chuyenToken(5)">Chuyển 5 Token</button>
+    <button onclick="chuyenToken(6)">Chuyển 6 Token</button>
+
+
+    <script>
+        async function chuyenToken(amount) {
+            // Lấy tài khoản người dùng hiện tại từ MetaMask hoặc trình duyệt hỗ trợ Ethereum khác
+            const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+            const userAccount = accounts[0];
+
+            // Địa chỉ hợp đồng GLDToken
+            const contractAddress = 'Địa chỉ hợp đồng của bạn ở đây';
+
+            // Tạo một đối tượng hợp đồng GLDToken
+            const contract = new ethers.Contract(contractAddress, ['function transfer(address to, uint256 amount)'], userAccount);
+
+            try {
+                // Gọi hàm chuyển token từ hợp đồng
+                const transaction = await contract.transfer('Địa chỉ nhận token ở đây', amount);
+                console.log('Giao dịch thành công:', transaction);
+            } catch (error) {
+                console.error('Lỗi khi chuyển token:', error);
+            }
+        }
+    </script>
+
+
+    <script>
+        // Lắng nghe sự kiện click trên nút và mở cửa sổ MetaMask
+        document.getElementById('chuyenMetaMask').addEventListener('click', function () {
+            openMetaMask();
+        });
+
+        function openMetaMask() {
+            if (window.ethereum) {
+                // Nếu trình duyệt hỗ trợ Ethereum (bao gồm MetaMask), mở cửa sổ MetaMask
+                window.ethereum.request({ method: 'eth_requestAccounts' });
+            } else {
+                // Hiển thị thông báo nếu trình duyệt không hỗ trợ Ethereum
+                alert('Trình duyệt của bạn không hỗ trợ MetaMask hoặc Ethereum.');
+            }
+        }
+    </script>
+
+</body>
+
+</html>
