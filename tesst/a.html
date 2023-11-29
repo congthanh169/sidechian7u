@@ -42,22 +42,7 @@
     </script>
 
 
-    <script>
-        // Lắng nghe sự kiện click trên nút và mở cửa sổ MetaMask
-        document.getElementById('chuyenMetaMask').addEventListener('click', function () {
-            openMetaMask();
-        });
 
-        function openMetaMask() {
-            if (window.ethereum) {
-                // Nếu trình duyệt hỗ trợ Ethereum (bao gồm MetaMask), mở cửa sổ MetaMask
-                window.ethereum.request({ method: 'eth_requestAccounts' });
-            } else {
-                // Hiển thị thông báo nếu trình duyệt không hỗ trợ Ethereum
-                alert('Trình duyệt của bạn không hỗ trợ MetaMask hoặc Ethereum.');
-            }
-        }
-    </script>
 
 </body>
 
